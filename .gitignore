@@ -1,0 +1,6 @@
+tp_execve.bpf.o
+tp_execve
+
+# auto-generated files
+tp_execve.skel.h
+vmlinux.h
