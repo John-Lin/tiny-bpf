@@ -1,6 +1,10 @@
-tp_execve.bpf.o
-tp_execve
+# user space examples binary
+hello
+bpf_to_bpf_calls
+global_variable
+
+*.bpf.o
 
 # auto-generated files
-tp_execve.skel.h
+*.skel.h
 vmlinux.h

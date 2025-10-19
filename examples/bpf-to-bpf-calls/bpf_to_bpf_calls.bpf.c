@@ -7,7 +7,7 @@ get_opcode(struct trace_event_raw_sys_enter *ctx) {
 }
 
 SEC("tracepoint/syscalls/sys_enter_execve")
-int tiny_tp_execve(struct trace_event_raw_sys_enter *ctx) {
+int tiny_bpf_to_calls(struct trace_event_raw_sys_enter *ctx) {
   int opcode = get_opcode(ctx);
   bpf_printk("Syscall: %d\n", opcode);
   return 0;

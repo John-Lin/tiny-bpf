@@ -1,20 +1,20 @@
 # tiny-bpf
 
-A minimal eBPF program that traces `execve` system calls using tracepoints.
+A collection of minimal eBPF examples demonstrating various eBPF capabilities.
 
 ## Prerequisites
 
 - Linux kernel with eBPF support (kernel >= 5.x recommended)
-- clang/LLVM
-- bpftool
+- clang/LLVM (for compiling BPF programs)
+- bpftool (for generating skeleton headers and viewing trace output)
 - libelf and zlib development libraries
 
-## Building
+## Getting Started
 
 ### 1. Clone the repository with submodules
 
 ```bash
-git clone --recurse-submodules <repository-url>
+git clone --recurse-submodules https://github.com/John-Lin/tiny-bpf.git
 ```
 
 Or if you already cloned without submodules:
@@ -31,22 +31,11 @@ make
 cd ../..
 ```
 
-### 3. Build the project
+## Examples
 
-```bash
-make
-```
+Each example is self-contained in the `examples/` directory with its own Makefile and README.
 
-## Running
+- **[hello](examples/hello/)** - Minimal eBPF program that traces `execve` system calls
+- **[bpf-to-bpf-calls](examples/bpf-to-bpf-calls/)** - Demonstrates BPF-to-BPF function calls
 
-```bash
-sudo ./tp_execve
-```
-
-To view the traced syscalls in another terminal:
-
-```bash
-sudo bpftool prog tracelog
-```
-
-Press Ctrl-C to stop the program.
+See each example's README for build and usage instructions.
