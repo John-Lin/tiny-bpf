@@ -31,7 +31,10 @@ int main(int argc, char **argv) {
   }
 
   int pid = atoi(argv[1]);
-  skel->bss->target_pid = pid;
+  // check the value of enable_logging in .data
+  // sudo bpftool map dump name global_v.data
+  skel->data->target_pid = pid;
+  skel->data->disable_logging = false;
 
   /* Load & verify BPF programs */
   err = global_variable_bpf__load(skel);
@@ -49,9 +52,12 @@ int main(int argc, char **argv) {
   printf("Successfully attached! Tracing read syscalls... Press Ctrl-C to "
          "stop.\n");
 
+  printf("Monitoring read syscalls for PID %d\n", pid);
   // Keep running until user interrupts
   while (1) {
     sleep(1);
+    // Read the read_count from .bss
+    printf("read_count: %d\n", skel->bss->read_count);
   }
 
 cleanup:
