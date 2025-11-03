@@ -2,6 +2,10 @@
 hello
 bpf_to_bpf_calls
 global_variable
+open_file
+bpf_map_hash
+bpf_map_perf_buffer
+bpf_map_ring_buffer
 
 *.bpf.o
 
