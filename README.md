@@ -33,9 +33,14 @@ cd ../..
 
 ## Examples
 
-Each example is self-contained in the `examples/` directory with its own Makefile and README.
+Each example is self-contained in the `examples/` directory with its own Makefile.
 
-- **[hello](examples/hello/)** - Minimal eBPF program that traces `execve` system calls
-- **[bpf-to-bpf-calls](examples/bpf-to-bpf-calls/)** - Demonstrates BPF-to-BPF function calls
+- **[01-hello](examples/01-hello/)** - Minimal eBPF program that traces `execve` system calls
+- **[02-global-variable](examples/02-global-variable/)** - Using global variables to pass data from userspace to kernel space
+- **[03-bpf-to-bpf-calls](examples/03-bpf-to-bpf-calls/)** - Demonstrates BPF-to-BPF function calls
+- **[04-open-file](examples/04-open-file/)** - Tracing file open operations via `openat` syscall
+- **[05-bpf-map-hash](examples/05-bpf-map-hash/)** - Using BPF hash map to count `execve` calls per user
+- **[06-bpf-map-perf-buffer](examples/06-bpf-map-perf-buffer/)** - Using perf event array to send data to userspace
+- **[07-bpf-map-ring-buffer](examples/07-bpf-map-ring-buffer/)** - Using ring buffer to send data to userspace
 
-See each example's README for build and usage instructions.
+See each example's README for build and usage instructions (where available).
