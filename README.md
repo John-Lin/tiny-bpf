@@ -39,8 +39,11 @@ Each example is self-contained in the `examples/` directory with its own Makefil
 - **[02-global-variable](examples/02-global-variable/)** - Using global variables to pass data from userspace to kernel space
 - **[03-bpf-to-bpf-calls](examples/03-bpf-to-bpf-calls/)** - Demonstrates BPF-to-BPF function calls
 - **[04-open-file](examples/04-open-file/)** - Tracing file open operations via `openat` syscall
-- **[05-bpf-map-hash](examples/05-bpf-map-hash/)** - Using BPF hash map to count `execve` calls per user
-- **[06-bpf-map-perf-buffer](examples/06-bpf-map-perf-buffer/)** - Using perf event array to send data to userspace
-- **[07-bpf-map-ring-buffer](examples/07-bpf-map-ring-buffer/)** - Using ring buffer to send data to userspace
+- **[05-bpf-map-array](examples/05-bpf-map-array/)** - Using BPF array map to track syscalls
+- **[06-bpf-map-hash](examples/06-bpf-map-hash/)** - Using BPF hash map to count `execve` calls per user
+- **[07-bpf-map-perf-buffer](examples/07-bpf-map-perf-buffer/)** - Using perf event array to send data to userspace
+- **[08-bpf-map-ring-buffer](examples/08-bpf-map-ring-buffer/)** - Using ring buffer to send data to userspace
+- **[09-bpf-map-percpu-array](examples/09-bpf-map-percpu-array/)** - Using per-CPU array map for packet counting in XDP
+- **[10-scratch-buffer](examples/10-scratch-buffer/)** - Using per-CPU array as scratch buffer for large data structures
 
 See each example's README for build and usage instructions (where available).
