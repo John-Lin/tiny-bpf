@@ -4,7 +4,7 @@ A collection of minimal eBPF examples demonstrating various eBPF capabilities.
 
 ## Prerequisites
 
-- Linux kernel with eBPF support (kernel >= 5.x recommended)
+- Linux kernel >= 5.14 with [BTF](https://docs.kernel.org/bpf/btf.html) enabled
 - clang/LLVM (for compiling BPF programs)
 - bpftool (for generating skeleton headers and viewing trace output)
 - libelf and zlib development libraries
