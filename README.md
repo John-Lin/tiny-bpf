@@ -9,27 +9,37 @@ A collection of minimal eBPF examples demonstrating various eBPF capabilities.
 - bpftool (for generating skeleton headers and viewing trace output)
 - libelf and zlib development libraries
 
+### Installing Prerequisites on Arch Linux
+
+```bash
+sudo pacman -S libelf zlib clang llvm bpf
+```
+
 ## Getting Started
 
 ### 1. Clone the repository with submodules
 
 ```bash
 git clone --recurse-submodules https://github.com/John-Lin/tiny-bpf.git
+cd tiny-bpf
 ```
 
 Or if you already cloned without submodules:
 
 ```bash
+cd tiny-bpf
 git submodule update --init --recursive
 ```
 
-### 2. Build libbpf
+### 2. Build libbpf from source
 
 ```bash
 cd libbpf/src
 make
 cd ../..
 ```
+
+Note: The examples use static linking and link directly to `libbpf/src/libbpf.a`, so you don't need `make install`.
 
 ## Examples
 
