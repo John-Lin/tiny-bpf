@@ -1,6 +1,13 @@
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
 
+struct data_t {
+  int pid;
+  int uid;
+  char command[16];
+  char filename[512];
+};
+
 struct {
   __uint(type, BPF_MAP_TYPE_RINGBUF);
   __uint(max_entries, 256 * 1024 /* 256 KB */);
@@ -13,13 +20,6 @@ struct {
   __type(value, struct data_t);
 } heap SEC(".maps");
 
-struct data_t {
-  int pid;
-  int uid;
-  char command[16];
-  char filename[512];
-};
-
 SEC("tracepoint/syscalls/sys_enter_execve")
 int handle_sys_enter_execve(struct trace_event_raw_sys_enter *ctx) {
   struct data_t *data;
@@ -31,6 +31,7 @@ int handle_sys_enter_execve(struct trace_event_raw_sys_enter *ctx) {
     return 0;
 
   filename_ptr = (const char *)ctx->args[0];
+  bpf_printk("filename_ptr = %p\n", filename_ptr);
 
   data->uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
   data->pid = bpf_get_current_pid_tgid() >> 32;
