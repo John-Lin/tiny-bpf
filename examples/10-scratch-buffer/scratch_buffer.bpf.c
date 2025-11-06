@@ -1,5 +1,6 @@
 #include "common.h"
 #include "vmlinux.h"
+#include <bpf/bpf_core_read.h>
 #include <bpf/bpf_helpers.h>
 
 struct {
@@ -24,7 +25,7 @@ int handle_sys_enter_execve(struct trace_event_raw_sys_enter *ctx) {
   if (!e) // should not happen
     return 0;
 
-  filename_ptr = (const char *)ctx->args[0];
+  bpf_core_read(&filename_ptr, sizeof(filename_ptr), &ctx->args[0]);
   bpf_printk("filename_ptr = %p\n", filename_ptr);
 
   e->uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
