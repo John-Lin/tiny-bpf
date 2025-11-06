@@ -9,6 +9,7 @@ bpf_map_perf_buffer
 bpf_map_ring_buffer
 bpf_map_percpu_array
 scratch_buffer
+reserve_submit
 
 *.bpf.o
 
