@@ -1,3 +1,4 @@
+#include "common.h"
 #include "scratch_buffer.skel.h"
 #include <bpf/bpf.h>
 #include <bpf/libbpf.h>
@@ -6,13 +7,6 @@
 #include <sys/resource.h>
 #include <time.h>
 #include <unistd.h>
-
-struct event {
-  int pid;
-  int uid;
-  char command[16];
-  char filename[512];
-};
 
 static int libbpf_print_fn(enum libbpf_print_level level, const char *format,
                            va_list args) {
