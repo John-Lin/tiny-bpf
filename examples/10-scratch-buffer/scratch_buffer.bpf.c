@@ -30,7 +30,7 @@ int handle_sys_enter_execve(struct trace_event_raw_sys_enter *ctx) {
   e->uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
   e->pid = bpf_get_current_pid_tgid() >> 32;
 
-  bpf_get_current_comm(&e->command, sizeof(e->command));
+  bpf_get_current_comm(&e->comm, sizeof(e->comm));
   bpf_probe_read_user_str(&e->filename, sizeof(e->filename), filename_ptr);
 
   bpf_ringbuf_output(&ring_buff, e, sizeof(*e), 0);
