@@ -5,7 +5,7 @@
 struct event {
   int pid;
   int uid;
-  char command[16];
+  char comm[16];
   char filename[512];
 };
 
