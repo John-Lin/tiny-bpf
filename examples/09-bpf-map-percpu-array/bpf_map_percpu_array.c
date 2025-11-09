@@ -21,6 +21,15 @@ int main(int argc, char **argv) {
   __u32 key = 0;
   __u64 values[ncpus];
   __u64 sum;
+  const char *ifname;
+
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s <interface>\n", argv[0]);
+    fprintf(stderr, "Example: %s wlan0\n", argv[0]);
+    return 1;
+  }
+
+  ifname = argv[1];
 
   printf("Number of possible CPUs: %d\n", ncpus);
 
@@ -41,23 +50,23 @@ int main(int argc, char **argv) {
     goto cleanup;
   }
 
-  /* Attach XDP program to wlan0 interface */
-  int ifindex = if_nametoindex("wlan0");
+  /* Attach XDP program to interface */
+  int ifindex = if_nametoindex(ifname);
   if (ifindex == 0) {
-    fprintf(stderr, "Failed to get ifindex for wlan0\n");
+    fprintf(stderr, "Failed to get ifindex for %s\n", ifname);
     err = 1;
     goto cleanup;
   }
 
   link = bpf_program__attach_xdp(skel->progs.count_packets, ifindex);
   if (!link) {
-    fprintf(stderr, "Failed to attach XDP program to wlan0\n");
+    fprintf(stderr, "Failed to attach XDP program to %s\n", ifname);
     err = 1;
     goto cleanup;
   }
 
-  printf("Successfully attached to wlan0! Tracing packet-in... Press Ctrl-C to "
-         "stop.\n");
+  printf("Successfully attached to %s! Tracing packet-in... Press Ctrl-C to "
+         "stop.\n", ifname);
 
   // Keep running until user interrupts
   while (1) {
