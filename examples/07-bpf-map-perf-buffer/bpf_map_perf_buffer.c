@@ -10,7 +10,7 @@
 struct event {
   int pid;
   int uid;
-  char command[16];
+  char comm[16];
   char filename[256];
 };
 
@@ -48,8 +48,7 @@ void handle_event(void *ctx, int cpu, void *data, unsigned int data_sz) {
   tm = localtime(&t);
   strftime(ts, sizeof(ts), "%H:%M:%S", tm);
 
-  printf("%-8s %-5s %-7d %-16s %s\n", ts, "EXEC", e->pid, e->command,
-         e->filename);
+  printf("%-8s %-5s %-7d %-16s %s\n", ts, "EXEC", e->pid, e->comm, e->filename);
 }
 
 int main(int argc, char **argv) {

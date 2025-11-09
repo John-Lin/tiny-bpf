@@ -10,7 +10,7 @@ struct {
 struct data_t {
   int pid;
   int uid;
-  char command[16];
+  char comm[16];
   char filename[256];
 };
 
@@ -23,7 +23,7 @@ int handle_sys_enter_execve(struct trace_event_raw_sys_enter *ctx) {
   data.uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
   data.pid = bpf_get_current_pid_tgid() >> 32;
 
-  bpf_get_current_comm(&data.command, sizeof(data.command));
+  bpf_get_current_comm(&data.comm, sizeof(data.comm));
   bpf_probe_read_user_str(&data.filename, sizeof(data.filename), filename_ptr);
 
   bpf_perf_event_output(ctx, &perf_buff, BPF_F_CURRENT_CPU, &data,
