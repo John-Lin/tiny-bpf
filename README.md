@@ -55,5 +55,7 @@ Each example is self-contained in the `examples/` directory with its own Makefil
 - **[08-bpf-map-ring-buffer](examples/08-bpf-map-ring-buffer/)** - Using ring buffer to send data to userspace
 - **[09-bpf-map-percpu-array](examples/09-bpf-map-percpu-array/)** - Using per-CPU array map for packet counting in XDP
 - **[10-scratch-buffer](examples/10-scratch-buffer/)** - Using per-CPU array as scratch buffer for large data structures
+- **[11-reserve-submit](examples/11-reserve-submit/)** - Using ring buffer reserve/submit API to send data to userspace
+- **[12-tail-calls](examples/12-tail-calls/)** - Using BPF tail calls to chain multiple BPF programs via program array map
 
 See each example's README for build and usage instructions (where available).
