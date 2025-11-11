@@ -95,6 +95,12 @@ int main(int argc, char **argv) {
     }
   }
 
+  for (k = 21; k <= 25; k++) {
+    if (bpf_map_update_elem(fd_map, &k, &fd_prog_ignore, BPF_ANY) != 0) {
+      fprintf(stderr, "Failed to update map for obsolete syscalls\n");
+    }
+  }
+
   printf("Successfully attached! Tracing sys_enter with tail calls... Press "
          "Ctrl-C to "
          "stop.\n");

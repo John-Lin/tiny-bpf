@@ -5,10 +5,12 @@
 // program array map to hold references to other BPF programs
 struct {
   __uint(type, BPF_MAP_TYPE_PROG_ARRAY);
-  __uint(max_entries, 512); // syscall numbers can be large
+  __uint(max_entries, 500); // syscall numbers can be large
   __type(key, __u32);
   __type(value, __u32); // program FD
 } syscall_progs SEC(".maps");
+// syscall numbers reference:
+// https://github.com/torvalds/linux/blob/v6.17/arch/x86/entry/syscalls/syscall_64.tbl
 
 SEC("raw_tracepoint/sys_enter") int hello(struct bpf_raw_tracepoint_args *ctx) {
   __u32 opcode = (__u32)ctx->args[1]; // args[1] holds syscall numbers
@@ -17,7 +19,7 @@ SEC("raw_tracepoint/sys_enter") int hello(struct bpf_raw_tracepoint_args *ctx) {
   bpf_tail_call(ctx, &syscall_progs, opcode);
 
   // missed tail call
-  bpf_printk("Another syscall: %d\n", ctx->args[0]);
+  bpf_printk("Another syscall: %d\n", opcode);
   return 0;
 }
 
