@@ -1,4 +1,4 @@
-#include "vmlinux.h"
+#include <linux/types.h>
 #include <bpf/bpf_helpers.h>
 
 SEC("tracepoint/syscalls/sys_enter_execve")
