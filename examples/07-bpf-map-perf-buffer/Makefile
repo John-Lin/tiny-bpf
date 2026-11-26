@@ -7,6 +7,7 @@ USER_SKEL = ${TARGET:=.skel.h}
 
 all: $(TARGET) $(BPF_OBJ)
 .PHONY: all 
+.DELETE_ON_ERROR:
 
 $(TARGET): $(USER_C) $(USER_SKEL) 
 	gcc -Wall -o $(TARGET) $(USER_C) -L../../libbpf/src -l:libbpf.a -lelf -lz

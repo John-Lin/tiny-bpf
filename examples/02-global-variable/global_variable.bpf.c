@@ -1,4 +1,5 @@
-#include "vmlinux.h"
+#include <linux/types.h>
+#include <stdbool.h>
 #include <bpf/bpf_helpers.h>
 
 // .bss section for uninitialized global variable

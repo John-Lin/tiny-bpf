@@ -4,10 +4,13 @@ A collection of minimal eBPF examples demonstrating various eBPF capabilities.
 
 ## Prerequisites
 
-- Linux kernel >= 5.14 with [BTF](https://docs.kernel.org/bpf/btf.html) enabled
+- Linux kernel >= 5.14
+- Linux userspace API (UAPI) headers (for examples that build without `vmlinux.h`)
 - clang/LLVM (for compiling BPF programs)
 - bpftool (for generating skeleton headers and viewing trace output)
 - libelf and zlib development libraries
+
+Examples `01`, `02`, `06`, `09`, and `12` do not need access to the kernel's `vmlinux` [BTF](https://docs.kernel.org/bpf/btf.html). The other examples use `/sys/kernel/btf/vmlinux` to generate `vmlinux.h` and need kernel BTF at load time. All examples still build BPF objects with their own BTF and use `bpftool` to generate skeletons.
 
 ### Installing Prerequisites on Arch Linux
 

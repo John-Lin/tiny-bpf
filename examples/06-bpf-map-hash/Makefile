@@ -11,9 +11,10 @@ all: $(TARGET) $(BPF_OBJ)
 $(TARGET): $(USER_C) $(USER_SKEL) 
 	gcc -Wall -o $(TARGET) $(USER_C) -L../../libbpf/src -l:libbpf.a -lelf -lz
 
-%.bpf.o: %.bpf.c vmlinux.h
+%.bpf.o: %.bpf.c
 	clang \
 	    -target bpf \
+	    -idirafter /usr/include/$(shell gcc -dumpmachine) \
         -D __TARGET_ARCH_$(ARCH) \
 	    -Wall \
 	    -O2 -g -o $@ -c $<
@@ -22,11 +23,7 @@ $(TARGET): $(USER_C) $(USER_SKEL)
 $(USER_SKEL): $(BPF_OBJ)
 	bpftool gen skeleton $< > $@
 
-vmlinux.h:
-	bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h
-
 clean:
 	- rm $(BPF_OBJ)
 	- rm $(TARGET)
 	- rm $(USER_SKEL)
-	- rm vmlinux.h
