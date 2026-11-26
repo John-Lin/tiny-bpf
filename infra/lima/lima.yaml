@@ -1,0 +1,42 @@
+# Start from the repository root with the --mount-only command in README.md.
+minimumLimaVersion: 2.0.0
+# Use the Debian image without Lima's default host home mount.
+base: template:_images/debian-13
+
+cpus: 2
+memory: 4GiB
+disk: 20GiB
+
+containerd:
+  system: false
+  user: false
+
+# The examples do not expose services; Lima keeps its own SSH connection.
+portForwards:
+  - guestIP: "0.0.0.0"
+    guestIPMustBeZero: false
+    proto: any
+    ignore: true
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/sh
+      set -eu
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      apt-get install -y --no-install-recommends \
+        bpftool build-essential clang libbpf-dev libelf-dev llvm pkgconf zlib1g-dev
+
+probes:
+  - mode: readiness
+    description: eBPF tools and kernel BTF are available
+    script: |
+      #!/bin/sh
+      set -eu
+      command -v clang >/dev/null
+      test -x /usr/sbin/bpftool
+      test -r /sys/kernel/btf/vmlinux
+    hint: |
+      Check /var/log/cloud-init-output.log in the guest for provisioning errors.
+      The guest kernel must expose BTF at /sys/kernel/btf/vmlinux.

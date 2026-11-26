@@ -34,7 +34,27 @@ cd tiny-bpf
 git submodule update --init --recursive
 ```
 
-### 2. Build libbpf from source
+### 2. Start a Lima VM (optional)
+
+For a dedicated Linux development VM, use the [Lima](https://lima-vm.io/)
+configuration in [`infra/lima/lima.yaml`](infra/lima/lima.yaml). It requires
+Lima 2.0 or newer and provisions a Debian 13 guest with the eBPF build tools
+and kernel BTF.
+
+Run from the repository root:
+
+```bash
+limactl start --name=tiny-bpf-dev --mount-only .:w ./infra/lima/lima.yaml
+limactl shell tiny-bpf-dev
+```
+
+Only the repository is mounted from the host, with write access so the guest
+can build the examples. Continue with the steps below inside the guest. Use
+`sudo` in the guest when running examples that load eBPF programs, and exit the
+guest before running `limactl stop tiny-bpf-dev` on the host. For subsequent
+sessions, restart the VM with `limactl start tiny-bpf-dev`.
+
+### 3. Build libbpf from source
 
 ```bash
 cd libbpf/src
