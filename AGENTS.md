@@ -8,7 +8,7 @@
 
 ## Verification
 
-1. Build and test on Linux. On macOS, use a Lima VM. Follow [README.md](README.md) for prerequisites and the vendored libbpf build.
+1. Run eBPF build and runtime checks on Linux. On macOS, use the [README's Lima setup](README.md#2-start-a-lima-vm-optional) when either check is needed. Follow the README for prerequisites and the vendored libbpf build.
 2. Run `make -C examples/<directory>` for each affected example. For toolchain or libbpf changes, build all examples from a clean tree; Make can otherwise reuse stale generated headers or skip relinking. Keep generated headers and binaries out of Git.
 3. For behavior changes, load and attach the program, trigger the relevant event, and check the expected output or map value. Test XDP on an isolated interface, not the VM's SSH interface. `13-fentry` needs kernel BTF and BPF trampoline support on the target architecture.
 4. Report the kernel and architecture, separating build, attach, and event checks.
